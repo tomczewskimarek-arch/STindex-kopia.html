@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Old Testament Chronological Reading Plan</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f5f4f0;
+    color: #1a1a1a;
+    min-height: 100vh;
+    padding: 24px 16px 48px;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  header h1 {
+    font-size: 26px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+  }
+
+  header p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: #EEEDFE;
+    color: #3C3489;
+    margin-bottom: 12px;
+    letter-spacing: .03em;
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .leg-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: #555;
+  }
+
+  .leg-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .intro {
+    font-size: 13px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .wrap {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    background: #fff;
+    border-radius: 16px;
+    border: 0.5px solid #ddd;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+
+  .map-col {
+    flex: 0 0 300px;
+  }
+
+  svg#map {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .detail-col {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .stage-btn { cursor: pointer; transition: opacity .15s; }
+  .stage-btn:hover { opacity: .8; }
+  .stage-btn.active rect { stroke-width: 2.5 !important; }
+
+  .detail-card { display: none; }
+  .detail-card.visible { display: block; }
+
+  .card-era {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    letter-spacing: .03em;
+  }
+
+  .card-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+
+  .card-geo {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  .card-section {
+    font-size: 11px;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin: 12px 0 6px;
+  }
+
+  .book-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 8px;
+  }
+
+  .book-pill {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    border: 0.5px solid #ccc;
+    color: #222;
+    background: #f7f7f5;
+  }
+
+  .note {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.7;
+    border-left: 2px solid #ddd;
+    padding-left: 12px;
+    margin-top: 10px;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 28px;
+    font-size: 12px;
+    color: #999;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 580px) {
+    .wrap { flex-direction: column; padding: 14px; }
+    .map-col { flex: none; width: 100%; max-width: 320px; margin: 0 auto; }
+    header h1 { font-size: 21px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="badge">Chronological Plan</div>
+    <h1>Old Testament — Chronological Reading Map</h1>
+    <p>Read chronologically, following the history of the patriarchs, kings, and the geography of the tribes of Israel.<br>
+    Click a stage on the map to see the detailed reading plan.</p>
+  </header>
+
+  <div class="legend">
+    <div class="leg-item"><div class="leg-dot" style="background:#7F77DD"></div> Prehistory / Patriarchs</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#1D9E75"></div> Exodus and conquest</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#BA7517"></div> Judges and unification</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#D85A30"></div> United Kingdom</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#378ADD"></div> Divided Kingdom</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#D4537E"></div> Judah Alone</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#888780"></div> Exile and Return</div>
+  </div>
+
+  <p class="intro">Click one of the 7 stages on the left side of the map to see the detailed reading plan for that historical period.</p>
+
+  <div class="wrap">
+
+    <div class="map-col">
+      <svg id="map" viewBox="0 0 300 520" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+
+        <ellipse cx="75" cy="260" rx="38" ry="110" fill="#B5D4F4" opacity=".35" stroke="#378ADD" stroke-width="0.5"/>
+        <text x="75" y="268" text-anchor="middle" font-size="9" fill="#185FA5" font-family="sans-serif">Mediterranean</text>
+        <text x="75" y="279" text-anchor="middle" font-size="9" fill="#185FA5" font-family="sans-serif">Sea</text>
+
+        <ellipse cx="240" cy="300" rx="28" ry="70" fill="#B5D4F4" opacity=".3" stroke="#378ADD" stroke-width="0.5"/>
+        <text x="240" y="298" text-anchor="middle" font-size="8" fill="#185FA5" font-family="sans-serif">Dead</text>
+        <text x="240" y="309" text-anchor="middle" font-size="8" fill="#185FA5" font-family="sans-serif">Sea</text>
+
+        <rect x="82" y="130" width="80" height="55" rx="6" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+        <text x="122" y="151" text-anchor="middle" font-size="9" fill="#3C3489" font-family="sans-serif" font-weight="500">Canaan</text>
+        <text x="122" y="163" text-anchor="middle" font-size="8" fill="#534AB7" font-family="sans-serif">(promised land)</text>
+        <text x="122" y="175" text-anchor="middle" font-size="8" fill="#534AB7" font-family="sans-serif">Abr. → Joseph</text>
+
+        <rect x="82" y="195" width="80" height="50" rx="6" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
+        <text x="122" y="215" text-anchor="middle" font-size="9" fill="#27500A" font-family="sans-serif" font-weight="500">Canaan</text>
+        <text x="122" y="228" text-anchor="middle" font-size="8" fill="#3B6D11" font-family="sans-serif">Conquest — Josh, Judg</text>
+        <text x="122" y="238" text-anchor="middle" font-size="8" fill="#3B6D11" font-family="sans-serif">12 tribes</text>
+
+        <rect x="82" y="255" width="80" height="50" rx="6" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+        <text x="122" y="275" text-anchor="middle" font-size="9" fill="#633806" font-family="sans-serif" font-weight="500">Benjamin / Judah</text>
+        <text x="122" y="288" text-anchor="middle" font-size="8" fill="#854F0B" font-family="sans-serif">Saul, David</text>
+        <text x="122" y="298" text-anchor="middle" font-size="8" fill="#854F0B" font-family="sans-serif">Gibeah → Jerusalem</text>
+
+        <rect x="82" y="315" width="38" height="68" rx="5" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+        <text x="101" y="335" text-anchor="middle" font-size="8" fill="#0C447C" font-family="sans-serif" font-weight="500">Israel</text>
+        <text x="101" y="347" text-anchor="middle" font-size="7.5" fill="#185FA5" font-family="sans-serif">Samaria</text>
+        <text x="101" y="358" text-anchor="middle" font-size="7.5" fill="#185FA5" font-family="sans-serif">Amos, Hos</text>
+        <text x="101" y="369" text-anchor="middle" font-size="7.5" fill="#185FA5" font-family="sans-serif">→722 BC</text>
+        <text x="101" y="378" text-anchor="middle" font-size="7" fill="#185FA5" font-family="sans-serif">(Assyria)</text>
+
+        <rect x="126" y="315" width="38" height="68" rx="5" fill="#FBEAF0" stroke="#993556" stroke-width="0.5"/>
+        <text x="145" y="335" text-anchor="middle" font-size="8" fill="#72243E" font-family="sans-serif" font-weight="500">Judah</text>
+        <text x="145" y="347" text-anchor="middle" font-size="7.5" fill="#993556" font-family="sans-serif">Jerusalem</text>
+        <text x="145" y="358" text-anchor="middle" font-size="7.5" fill="#993556" font-family="sans-serif">Isa, Mic, Jer</text>
+        <text x="145" y="369" text-anchor="middle" font-size="7.5" fill="#993556" font-family="sans-serif">→586 BC</text>
+        <text x="145" y="378" text-anchor="middle" font-size="7" fill="#993556" font-family="sans-serif">(Babylon)</text>
+
+        <rect x="155" y="400" width="110" height="50" rx="6" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+        <text x="210" y="420" text-anchor="middle" font-size="9" fill="#444441" font-family="sans-serif" font-weight="500">Babylon / Persia</text>
+        <text x="210" y="433" text-anchor="middle" font-size="8" fill="#5F5E5A" font-family="sans-serif">Exile → Return</text>
+        <text x="210" y="444" text-anchor="middle" font-size="8" fill="#5F5E5A" font-family="sans-serif">Ezek, Dan, Ezra, Neh</text>
+
+        <rect x="20" y="430" width="90" height="45" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+        <text x="65" y="448" text-anchor="middle" font-size="9" fill="#712B13" font-family="sans-serif" font-weight="500">Egypt</text>
+        <text x="65" y="460" text-anchor="middle" font-size="8" fill="#993C1D" font-family="sans-serif">Exodus — Ex</text>
+        <text x="65" y="470" text-anchor="middle" font-size="8" fill="#993C1D" font-family="sans-serif">Sinai — Num, Deut</text>
+
+        <rect x="30" y="50" width="100" height="50" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+        <text x="80" y="70" text-anchor="middle" font-size="9" fill="#3C3489" font-family="sans-serif" font-weight="500">Mesopotamia</text>
+        <text x="80" y="83" text-anchor="middle" font-size="8" fill="#534AB7" font-family="sans-serif">Ur, Harran</text>
+        <text x="80" y="93" text-anchor="middle" font-size="8" fill="#534AB7" font-family="sans-serif">Gen 1–11, Abraham</text>
+
+        <line x1="80" y1="100" x2="110" y2="128" stroke="#534AB7" stroke-width="1" stroke-dasharray="3 2" fill="none" marker-end="url(#arr2)"/>
+        <line x1="122" y1="185" x2="122" y2="193" stroke="#3B6D11" stroke-width="1" stroke-dasharray="3 2" fill="none" marker-end="url(#arr2)"/>
+        <line x1="65" y1="430" x2="100" y2="255" stroke="#854F0B" stroke-width="1" stroke-dasharray="3 2" fill="none" marker-end="url(#arr2)"/>
+        <line x1="101" y1="383" x2="170" y2="398" stroke="#5F5E5A" stroke-width="1" stroke-dasharray="3 2" fill="none" marker-end="url(#arr2)"/>
+        <line x1="145" y1="383" x2="185" y2="398" stroke="#5F5E5A" stroke-width="1" stroke-dasharray="3 2" fill="none" marker-end="url(#arr2)"/>
+
+        <g class="stage-btn" id="btn1" onclick="show(1)">
+          <rect x="168" y="48" width="122" height="32" rx="6" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1"/>
+          <text x="229" y="68" text-anchor="middle" font-size="11" fill="#3C3489" font-family="sans-serif" font-weight="600">1. Patriarchs</text>
+        </g>
+        <g class="stage-btn" id="btn2" onclick="show(2)">
+          <rect x="168" y="90" width="122" height="32" rx="6" fill="#EAF3DE" stroke="#3B6D11" stroke-width="1"/>
+          <text x="229" y="110" text-anchor="middle" font-size="11" fill="#27500A" font-family="sans-serif" font-weight="600">2. Exodus &amp; Conquest</text>
+        </g>
+        <g class="stage-btn" id="btn3" onclick="show(3)">
+          <rect x="168" y="132" width="122" height="32" rx="6" fill="#FAEEDA" stroke="#854F0B" stroke-width="1"/>
+          <text x="229" y="152" text-anchor="middle" font-size="11" fill="#633806" font-family="sans-serif" font-weight="600">3. Judges</text>
+        </g>
+        <g class="stage-btn" id="btn4" onclick="show(4)">
+          <rect x="168" y="174" width="122" height="32" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="1"/>
+          <text x="229" y="194" text-anchor="middle" font-size="11" fill="#712B13" font-family="sans-serif" font-weight="600">4. United Kingdom</text>
+        </g>
+        <g class="stage-btn" id="btn5" onclick="show(5)">
+          <rect x="168" y="216" width="122" height="32" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="1"/>
+          <text x="229" y="236" text-anchor="middle" font-size="11" fill="#0C447C" font-family="sans-serif" font-weight="600">5. Divided Kingdom</text>
+        </g>
+        <g class="stage-btn" id="btn6" onclick="show(6)">
+          <rect x="168" y="258" width="122" height="32" rx="6" fill="#FBEAF0" stroke="#993556" stroke-width="1"/>
+          <text x="229" y="278" text-anchor="middle" font-size="11" fill="#72243E" font-family="sans-serif" font-weight="600">6. Judah Alone</text>
+        </g>
+        <g class="stage-btn" id="btn7" onclick="show(7)">
+          <rect x="168" y="300" width="122" height="32" rx="6" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1"/>
+          <text x="229" y="320" text-anchor="middle" font-size="11" fill="#444441" font-family="sans-serif" font-weight="600">7. Exile and Return</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="detail-col">
+
+      <div class="detail-card visible" id="card0">
+        <div class="card-title">Select a stage on the map</div>
+        <div class="card-geo">Click one of the 7 buttons on the left to see the detailed reading plan for that historical period.</div>
+        <div class="note">Plan arranged chronologically — from creation (c. 2000 BC) to the end of the Persian period (c. 400 BC). Each stage includes narrative and prophetic books read in parallel with the historical storyline.</div>
+      </div>
+
+      <div class="detail-card" id="card1">
+        <span class="card-era" style="background:#EEEDFE;color:#3C3489">c. 2000–1700 BC</span>
+        <div class="card-title">Stage 1 — Prehistory and Patriarchs</div>
+        <div class="card-geo">Geography: Ur of the Chaldeans, Harran, Canaan (Hebron, Bethel, Shechem), Egypt</div>
+        <div class="card-section">Reading order</div>
+        <div class="book-row">
+          <span class="book-pill">Gen 1–11</span>
+          <span class="book-pill">Gen 12–25</span>
+          <span class="book-pill">Gen 26–36</span>
+          <span class="book-pill">Gen 37–50</span>
+          <span class="book-pill">Job</span>
+        </div>
+        <div class="card-section">What we read and why</div>
+        <div class="note">Gen 1–11: creation, fall, flood, Babel — the foundation of theology. Gen 12–50: Abraham (Ur→Canaan), Isaac, Jacob (12 tribes), Joseph (Egypt). The book of Job — probably from this era; read it after Gen 3 as a meditation on suffering.</div>
+      </div>
+
+      <div class="detail-card" id="card2">
+        <span class="card-era" style="background:#EAF3DE;color:#27500A">c. 1280–1200 BC</span>
+        <div class="card-title">Stage 2 — Exodus, Wilderness, Conquest of Canaan</div>
+        <div class="card-geo">Geography: Egypt (Goshen, Ramesses), Sinai, Moab, Jericho, Canaan tribe by tribe</div>
+        <div class="card-section">Reading order</div>
+        <div class="book-row">
+          <span class="book-pill">Ex 1–20</span>
+          <span class="book-pill">Lev (selected)</span>
+          <span class="book-pill">Num 10–36</span>
+          <span class="book-pill">Deut 1–11; 27–34</span>
+          <span class="book-pill">Josh</span>
+          <span class="book-pill">Judg 1–3</span>
+          <span class="book-pill">Ruth</span>
+        </div>
+        <div class="card-section">Reading tip</div>
+        <div class="note">From Lev read ch. 1, 16, 19, 23 — the core of the Law. Num 10–14 (the journey) and 20–21 (end of wandering). Deuteronomy contains Moses' farewell speeches — read it as a summary. Ruth fits right after Judges — geographically: Bethlehem in Judah.</div>
+      </div>
+
+      <div class="detail-card" id="card3">
+        <span class="card-era" style="background:#FAEEDA;color:#633806">c. 1200–1050 BC</span>
+        <div class="card-title">Stage 3 — Judges and Unification</div>
+        <div class="card-geo">Geography: each judge comes from a different region — Dan (north), Ephraim (centre), Judah (south), Transjordan</div>
+        <div class="card-section">Reading order</div>
+        <div class="book-row">
+          <span class="book-pill">Judg 4–21</span>
+          <span class="book-pill">1 Sam 1–8</span>
+        </div>
+        <div class="card-section">Judges and tribal geography</div>
+        <div class="note">Deborah (Ephraim/Naphtali), Gideon (Manasseh), Jephthah (Gilead, east of Jordan), Samson (Dan). Keep a tribal map open alongside each judge — it is the key to understanding Israel's divisions. Samuel closes the era and opens the monarchy.</div>
+      </div>
+
+      <div class="detail-card" id="card4">
+        <span class="card-era" style="background:#FAECE7;color:#712B13">c. 1050–930 BC</span>
+        <div class="card-title">Stage 4 — United Kingdom</div>
+        <div class="card-geo">Geography: Gibeah (Saul), Hebron (David), Jerusalem (capital), Zion, Solomon's Temple</div>
+        <div class="card-section">Reading order</div>
+        <div class="book-row">
+          <span class="book-pill">1 Sam 9–31</span>
+          <span class="book-pill">2 Sam 1–24</span>
+          <span class="book-pill">Psalms of David</span>
+          <span class="book-pill">1 Kgs 1–11</span>
+          <span class="book-pill">Prov</span>
+          <span class="book-pill">Eccl</span>
+          <span class="book-pill">Song</span>
+        </div>
+        <div class="card-section">Psalms woven into the narrative</div>
+        <div class="note">Ps 18 after 2 Sam 22; Ps 51 after 2 Sam 12 (David's sin); Ps 3 after 2 Sam 15 (flight from Absalom). Psalm headings are chronological signposts. Prov, Eccl and Song — read after 1 Kgs 3–11 (Solomon).</div>
+      </div>
+
+      <div class="detail-card" id="card5">
+        <span class="card-era" style="background:#E6F1FB;color:#0C447C">930–722 BC</span>
+        <div class="card-title">Stage 5 — Divided Kingdom (Israel and Judah)</div>
+        <div class="card-geo">Geography: Samaria (northern capital of Israel), Jerusalem (southern capital of Judah), Assyria advancing from the north</div>
+        <div class="card-section">Read in parallel — Israel and Judah</div>
+        <div class="book-row">
+          <span class="book-pill">1 Kgs 12–22</span>
+          <span class="book-pill">2 Kgs 1–17</span>
+          <span class="book-pill">Amos (Israel)</span>
+          <span class="book-pill">Hos (Israel)</span>
+          <span class="book-pill">Jonah</span>
+          <span class="book-pill">Joel (Judah)</span>
+          <span class="book-pill">Isa 1–39 (Judah)</span>
+          <span class="book-pill">Mic (Judah)</span>
+        </div>
+        <div class="card-section">Synchronisation key</div>
+        <div class="note">For each king in 1–2 Kgs, insert the prophet active during that reign. Elijah and Elisha are built into the text of Kings. The stage ends with the fall of Samaria (2 Kgs 17) — deportation of the 10 northern tribes by Assyria in 722 BC.</div>
+      </div>
+
+      <div class="detail-card" id="card6">
+        <span class="card-era" style="background:#FBEAF0;color:#72243E">722–586 BC</span>
+        <div class="card-title">Stage 6 — Judah Alone</div>
+        <div class="card-geo">Geography: Jerusalem, Lachish, Egypt (ally), Babylon advancing from the north-east</div>
+        <div class="card-section">Reading order</div>
+        <div class="book-row">
+          <span class="book-pill">2 Kgs 18–25</span>
+          <span class="book-pill">2 Chr 29–36</span>
+          <span class="book-pill">Isa 40–55</span>
+          <span class="book-pill">Nah</span>
+          <span class="book-pill">Zeph</span>
+          <span class="book-pill">Hab</span>
+          <span class="book-pill">Jer 1–45</span>
+          <span class="book-pill">Lam</span>
+        </div>
+        <div class="card-section">Prophets in chronological order</div>
+        <div class="note">Nah — fall of Nineveh (612); Zeph and Hab — under Josiah and Jehoiakim. Jer — from Josiah's reform (621) to the destruction of Jerusalem (586). Read Lamentations immediately after 2 Kgs 25 — an elegy over the ruined city.</div>
+      </div>
+
+      <div class="detail-card" id="card7">
+        <span class="card-era" style="background:#F1EFE8;color:#444441">586–400 BC</span>
+        <div class="card-title">Stage 7 — Babylonian Exile and Return</div>
+        <div class="card-geo">Geography: Babylon (Ezek, Dan), Persia — Susa (Esth), return to Judah and rebuilding of Jerusalem</div>
+        <div class="card-section">Reading order</div>
+        <div class="book-row">
+          <span class="book-pill">Ezek (Babylon)</span>
+          <span class="book-pill">Dan (Babylon)</span>
+          <span class="book-pill">Esth (Persia)</span>
+          <span class="book-pill">Ezra 1–6</span>
+          <span class="book-pill">Hag</span>
+          <span class="book-pill">Zech 1–8</span>
+          <span class="book-pill">Ezra 7–10</span>
+          <span class="book-pill">Neh</span>
+          <span class="book-pill">Isa 56–66</span>
+          <span class="book-pill">Zech 9–14</span>
+          <span class="book-pill">Mal</span>
+        </div>
+        <div class="card-section">Chronological key</div>
+        <div class="note">Ezekiel and Daniel write from Babylon during the exile. Hag and Zech 1–8 — at the rebuilding of the Temple (520–515 BC). Ezra 7 and Neh — 457–444 BC, the second wave of return. Mal and Zech 9–14 — c. 430 BC — the closing of the OT canon. The Old Testament ends with an unanswered question — answered by the New Testament.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    Old Testament Chronological Reading Plan &nbsp;|&nbsp;
+    7 stages from c. 2000 BC to c. 400 BC
+  </footer>
+
+</div>
+
+<script>
+  function show(n) {
+    document.querySelectorAll('.detail-card').forEach(c => c.classList.remove('visible'));
+    document.querySelectorAll('.stage-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('card' + n).classList.add('visible');
+    document.getElementById('btn' + n).classList.add('active');
+  }
+</script>
+</body>
+</html>
